@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { ServerCard } from "@/components/server-card";
+import { ConfigGenerator } from "@/components/config-generator";
 import {
   getServerBySlug,
   getCategoryBySlug,
@@ -17,6 +18,7 @@ import {
   Package,
   User,
   ShieldCheck,
+  Settings,
 } from "lucide-react";
 
 interface ServerDetailProps {
@@ -84,19 +86,6 @@ export default async function ServerDetailPage({ params }: ServerDetailProps) {
   const installCmd = server.npmPackage
     ? `npx -y ${server.npmPackage}`
     : `npx -y @modelcontextprotocol/server-${server.id}`;
-
-  const mcpConfig = JSON.stringify(
-    {
-      mcpServers: {
-        [server.id]: {
-          command: "npx",
-          args: ["-y", server.npmPackage || `@modelcontextprotocol/server-${server.id}`],
-        },
-      },
-    },
-    null,
-    2
-  );
 
   return (
     <>
@@ -181,27 +170,27 @@ export default async function ServerDetailPage({ params }: ServerDetailProps) {
                 </div>
               )}
 
-              {/* Installation */}
+              {/* Quick Install */}
               <div className="mt-8">
                 <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  Installation
+                  Quick Install
                 </h2>
-                <div className="space-y-4">
-                  <div>
-                    <p className="mb-2 text-sm text-muted-foreground">Quick start:</p>
-                    <div className="overflow-hidden rounded-lg border border-border bg-muted/50 p-4">
-                      <code className="text-sm font-mono break-all">{installCmd}</code>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="mb-2 text-sm text-muted-foreground">
-                      MCP client configuration:
-                    </p>
-                    <div className="overflow-hidden rounded-lg border border-border bg-muted/50 p-4">
-                      <pre className="text-sm font-mono overflow-x-auto">{mcpConfig}</pre>
-                    </div>
-                  </div>
+                <div className="overflow-hidden rounded-lg border border-border bg-muted/50 p-4">
+                  <code className="text-sm font-mono break-all">{installCmd}</code>
                 </div>
+              </div>
+
+              {/* Config Generator */}
+              <div className="mt-8">
+                <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                  <Settings className="h-4 w-4" />
+                  Configuration
+                </h2>
+                <ConfigGenerator
+                  serverId={server.id}
+                  serverName={server.name}
+                  npmPackage={server.npmPackage}
+                />
               </div>
             </div>
           </div>
