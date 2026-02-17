@@ -1,0 +1,23 @@
+id,name,description,icon
+browser,Browser Automation,Web content access automation and scraping,Globe
+database,Databases,Database integrations and data management,Database
+cloud,Cloud Platforms,Cloud service integrations and management,Cloud
+dev-tools,Developer Tools,Development and coding tools,Code
+filesystem,File Systems,File and directory operations,Folder
+version-control,Version Control,Git and source control tools,GitBranch
+search,Search,Search engines and data extraction,Search
+communication,Communication,Messaging and collaboration tools,MessageSquare
+productivity,Productivity,Task and project management,CheckSquare
+knowledge,Knowledge & Memory,Knowledge graphs and memory systems,Brain
+creative,Creative Tools,3D modeling video editing and design,Palette
+finance,Finance,Trading payments and financial services,DollarSign
+location,Location Services,Maps directions and geolocation,MapPin
+monitoring,Monitoring,Error tracking and observability,Activity
+devops,DevOps,Container and infrastructure management,Server
+social,Social Media,Social platform integrations,Share2
+utilities,Utilities,General purpose tools and helpers,Wrench
+reasoning,Reasoning,Problem-solving and thinking tools,Lightbulb
+documentation,Documentation,API docs and library references,BookOpen
+aggregator,Aggregators,Multi-service and API aggregation,Layers
+media,Media,Video audio and content processing,Video
+ui-components,UI Components,Design systems and component libraries,Layout
