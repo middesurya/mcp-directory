@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Blocks, Github, Search, X } from "lucide-react";
 import { SearchBar } from "./search-bar";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
@@ -65,6 +66,7 @@ export function Header() {
           >
             <Github className="h-5 w-5" />
           </a>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
