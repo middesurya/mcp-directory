@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
-import { servers } from "@/db/schema";
-import { like, or, sql } from "drizzle-orm";
+import { searchServers } from "@/data/servers";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -13,23 +11,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ results: [] });
   }
 
-  const searchTerm = `%${query.toLowerCase()}%`;
-
   try {
-    const results = await db
-      .select()
-      .from(servers)
-      .where(
-        or(
-          sql`lower(${servers.name}) LIKE ${searchTerm}`,
-          sql`lower(${servers.description}) LIKE ${searchTerm}`,
-          sql`lower(${servers.category}) LIKE ${searchTerm}`,
-          sql`lower(${servers.author}) LIKE ${searchTerm}`,
-          sql`lower(${servers.features}) LIKE ${searchTerm}`
-        )
-      )
-      .limit(limit);
-
+    const results = searchServers(query, limit);
     return NextResponse.json({ results });
   } catch (error) {
     console.error("Search error:", error);
