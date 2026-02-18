@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Search, ArrowRight, Sparkles } from "lucide-react";
 import { ServerCard } from "@/components/server-card";
 import { CategoryCard } from "@/components/category-card";
+import { ClientCard } from "@/components/client-card";
 import { StatsBar } from "@/components/stats-bar";
 import {
   getAllCategories,
@@ -9,9 +10,11 @@ import {
   getLatestServers,
   getStats,
 } from "@/lib/queries";
+import { getAllClients } from "@/data/clients";
 
 export default function HomePage() {
   const categories = getAllCategories();
+  const clients = getAllClients();
   const featured = getFeaturedServers(6);
   const latest = getLatestServers(6);
   const stats = getStats();
@@ -89,46 +92,74 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Browse by Client */}
       <section className="border-t border-border/40 bg-muted/20">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-          <div className="text-center">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">Browse by Client</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Find servers for your AI assistant
+              </p>
+            </div>
+            <Link
+              href="/clients"
+              className="group flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            >
+              View all
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {clients.map((client) => (
+              <ClientCard key={client.id} client={client} serverCount={stats.servers} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="flex items-center justify-between">
+          <div>
             <h2 className="text-2xl font-bold tracking-tight">Browse by Category</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Explore servers organized by what they do
             </p>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {categories
-              .filter((c) => (c.serverCount ?? 0) > 0)
-              .map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
-          </div>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {categories
+            .filter((c) => (c.serverCount ?? 0) > 0)
+            .map((category) => (
+              <CategoryCard key={category.id} category={category} />
+            ))}
         </div>
       </section>
 
       {/* Latest Additions */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Latest Additions</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Recently added MCP servers
-            </p>
+      <section className="border-t border-border/40 bg-muted/20">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">Latest Additions</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Recently added MCP servers
+              </p>
+            </div>
+            <Link
+              href="/servers"
+              className="group flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            >
+              View all
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </div>
-          <Link
-            href="/servers"
-            className="group flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-          >
-            View all
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {latest.map((server) => (
-            <ServerCard key={server.id} server={server} />
-          ))}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {latest.map((server) => (
+              <ServerCard key={server.id} server={server} />
+            ))}
+          </div>
         </div>
       </section>
 

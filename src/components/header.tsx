@@ -50,7 +50,13 @@ export function Header() {
             href="/servers"
             className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            Browse
+            Servers
+          </Link>
+          <Link
+            href="/clients"
+            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Clients
           </Link>
           <Link
             href="/submit"
